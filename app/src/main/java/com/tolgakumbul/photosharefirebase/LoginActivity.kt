@@ -18,10 +18,31 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         auth = Firebase.auth
+
+        val currentUser = auth.currentUser
+        if(currentUser != null) {
+            changeActivity()
+        }
+
     }
 
     fun login(view:View){
+        val email = findViewById<EditText>(R.id.emailText)
+        val password = findViewById<EditText>(R.id.passwordText)
 
+        auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val currentUser = auth.currentUser?.email.toString()
+                    Toast.makeText(this, "Welcome $currentUser",
+                        Toast.LENGTH_LONG).show()
+                    changeActivity()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, exception.localizedMessage,
+                    Toast.LENGTH_LONG).show()
+            }
     }
 
     fun signIn(view:View){
@@ -31,18 +52,21 @@ class LoginActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    //val user = auth.currentUser
-                    val intent = Intent(this, PhotoFeedActivity::class.java)
-                    startActivity(intent)
-                    finish() //onDestroy() çağırabilmek için
+                    changeActivity()
                 }/* else {
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_LONG).show()
                 }*/
             }
             .addOnFailureListener { exception ->
-                Toast.makeText(baseContext, exception.localizedMessage,
+                Toast.makeText(this, exception.localizedMessage,
                     Toast.LENGTH_LONG).show()
             }
+    }
+
+    private fun changeActivity() {
+        val intent = Intent(this, PhotoFeedActivity::class.java)
+        startActivity(intent)
+        finish() //onDestroy() çağırabilmek için
     }
 }
