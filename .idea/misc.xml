@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/tolga/AndroidStudioProjects/PhotoShareFirebase/app/src/main/res/drawable/ic_baseline_add_a_photo_24.xml" value="0.2985" />
         <entry key="..\:/Users/tolga/AndroidStudioProjects/PhotoShareFirebase/app/src/main/res/layout/activity_add_photo.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tolga/AndroidStudioProjects/PhotoShareFirebase/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tolga/AndroidStudioProjects/PhotoShareFirebase/app/src/main/res/layout/activity_photo_feed.xml" value="0.33" />
