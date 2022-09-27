@@ -67,6 +67,6 @@ class LoginActivity : AppCompatActivity() {
     private fun changeActivity() {
         val intent = Intent(this, PhotoFeedActivity::class.java)
         startActivity(intent)
-        finish() //onDestroy() çağırabilmek için
+        finish() //to call onDestroy()
     }
 }
