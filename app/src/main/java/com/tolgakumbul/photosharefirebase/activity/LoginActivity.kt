@@ -1,4 +1,4 @@
-package com.tolgakumbul.photosharefirebase
+package com.tolgakumbul.photosharefirebase.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.tolgakumbul.photosharefirebase.R
 
 class LoginActivity : AppCompatActivity() {
 

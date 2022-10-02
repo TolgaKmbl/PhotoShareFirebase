@@ -1,22 +1,31 @@
-package com.tolgakumbul.photosharefirebase
+package com.tolgakumbul.photosharefirebase.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
+import com.tolgakumbul.photosharefirebase.R
+import com.tolgakumbul.photosharefirebase.model.Post
 
 class PhotoFeedActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseFirestore
+
+    var postList = ArrayList<Post>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_photo_feed)
         auth = Firebase.auth
+        database = FirebaseFirestore.getInstance()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -40,5 +49,29 @@ class PhotoFeedActivity : AppCompatActivity() {
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun getData() {
+        database.collection("Post")
+            .orderBy("time", Query.Direction.DESCENDING)
+            .addSnapshotListener { snapshot, exception ->
+            if(exception != null){
+                Toast.makeText(this, exception.localizedMessage,
+                    Toast.LENGTH_LONG).show()
+            } else {
+                if(snapshot != null && !snapshot.isEmpty) {
+                    val documents = snapshot.documents
+                    postList.clear()
+                    for(document in documents) {
+                        val currentUserMail = document.get("currentUserMail") as String
+                        val userComment = document.get("userComment") as String
+                        val imageUrl = document.get("imageUrl") as String
+
+                        val downloadedPost = Post(currentUserMail, userComment, imageUrl)
+                        postList.add(downloadedPost)
+                    }
+                }
+            }
+        }
     }
 }

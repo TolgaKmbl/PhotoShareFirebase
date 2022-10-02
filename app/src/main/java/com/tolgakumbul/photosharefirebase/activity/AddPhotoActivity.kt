@@ -1,4 +1,4 @@
-package com.tolgakumbul.photosharefirebase
+package com.tolgakumbul.photosharefirebase.activity
 
 import android.Manifest
 import android.content.Intent
@@ -20,6 +20,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import com.tolgakumbul.photosharefirebase.R
 import java.util.*
 
 class AddPhotoActivity : AppCompatActivity() {
